@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Практическая работа №6. Browser API</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <h1>Практическая работа №6. Browser API</h1>
+
+    <nav class="navigation" aria-label="Разделы работы">
+      <div class="page-links">
+        <a href="#history" aria-current="page">История</a>
+        <a href="#demo">Canvas и Web Worker</a>
+      </div>
+      <div class="actions" role="group" aria-label="Кнопки истории">
+        <button id="back" type="button" disabled>Назад</button>
+        <button id="forward" type="button" disabled>Вперед</button>
+      </div>
+    </nav>
+    <p id="navigation-error" class="error" role="status" hidden></p>
+
+    <section id="history-panel" class="panel" aria-labelledby="history-title">
+      <h2 id="history-title">История переходов</h2>
+      <p>Откройте вкладку Canvas и Web Worker, затем нажмите <strong>Назад</strong>.
+        Кнопка <strong>Вперед</strong> снова откроет эту вкладку.</p>
+      <p>Кнопки браузера работают так же.</p>
+      <p class="history-position">Текущая запись <output id="history-position">1 из 1</output></p>
+    </section>
+
+    <div id="demo-panel" class="demo" hidden>
+      <section class="panel" aria-labelledby="canvas-title">
+        <h2 id="canvas-title">Частицы</h2>
+        <p class="hint" id="canvas-hint">Подведите указатель к частицам или проведите пальцем по холсту.</p>
+        <div class="canvas-frame">
+          <canvas id="particles" aria-label="Холст с частицами" aria-describedby="canvas-hint">
+            Браузер не поддерживает Canvas.
+          </canvas>
+        </div>
+        <div class="canvas-controls">
+          <div class="particle-control">
+            <label for="particle-count">Частиц <output id="particle-value" for="particle-count">80</output></label>
+            <input id="particle-count" type="range" min="20" max="160" step="10" value="80">
+          </div>
+          <div class="actions">
+            <button id="pause" type="button">Пауза</button>
+            <button id="save-image" type="button">Скачать PNG</button>
+            <span class="fps"><span id="fps">-</span> FPS</span>
+          </div>
+        </div>
+        <p id="canvas-status" class="hint" role="status"></p>
+      </section>
+
+      <section class="panel worker-panel" aria-labelledby="worker-title">
+        <h2 id="worker-title">Простые числа</h2>
+        <p class="hint">Воркер считает простые числа до заданной границы включительно.</p>
+
+        <form id="prime-form" novalidate>
+          <label for="prime-limit">Верхняя граница</label>
+          <input id="prime-limit" type="number" min="2" max="20000000" step="1" value="10000000" required
+            aria-describedby="prime-range" aria-errormessage="worker-status">
+          <p id="prime-range" class="hint">Целое число от 2 до 20 000 000.</p>
+          <div class="actions">
+            <button id="calculate" class="primary" type="submit">Посчитать</button>
+            <button id="stop" type="button" hidden>Остановить</button>
+          </div>
+        </form>
+
+        <p id="worker-status" class="worker-status" role="status">Готово к расчету.</p>
+        <dl id="prime-result" class="result" hidden>
+          <div>
+            <dt>Найдено</dt>
+            <dd id="prime-count"></dd>
+          </div>
+          <div>
+            <dt>Наибольшее</dt>
+            <dd id="largest-prime"></dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
